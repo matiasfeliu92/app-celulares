@@ -1,11 +1,17 @@
 import {Request, Response} from 'express'
 import {Product} from '../models/products.models'
+import { Repository } from 'typeorm';
 
 class ProdController {
 
     async getProducts (req: Request, res: Response) {
         try {
-            const products = await Product.find()
+            // const products = await Product.find()
+            const products = await Product
+            .createQueryBuilder("products")
+            .leftJoinAndSelect("products.category_id", "categories")
+            .getMany();
+            console.log(products)
             res.status(200).json(products)
         } catch (error) {
             if(error instanceof Error){

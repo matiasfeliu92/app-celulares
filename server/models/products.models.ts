@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, JoinColumn, OneToMany, ManyToOne, ManyToMany } from "typeorm";
+import { Category } from "./categorias.models";
 
 @Entity({ name: "products" })
 export class Product extends BaseEntity {
@@ -30,6 +31,14 @@ export class Product extends BaseEntity {
 
     @Column({length: 200})
     description!: string
+
+    @OneToOne((type) => Category, {
+        eager: true,
+        cascade: true,
+        nullable: true
+    })
+    @JoinColumn({name: 'category_id'})
+    category_id?: Category
 
     @Column({length: 300, nullable: true})
     url_web? : string

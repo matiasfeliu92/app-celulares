@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const typeorm_1 = require("typeorm");
+const categorias_models_1 = require("./categorias.models");
 let Product = class Product extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -29,6 +30,15 @@ __decorate([
     (0, typeorm_1.Column)({ length: 200 }),
     __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)((type) => categorias_models_1.Category, {
+        eager: true,
+        cascade: true,
+        nullable: true
+    }),
+    (0, typeorm_1.JoinColumn)({ name: 'category_id' }),
+    __metadata("design:type", categorias_models_1.Category)
+], Product.prototype, "category_id", void 0);
 __decorate([
     (0, typeorm_1.Column)({ length: 300, nullable: true }),
     __metadata("design:type", String)

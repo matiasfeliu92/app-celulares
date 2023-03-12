@@ -40,5 +40,16 @@ class CategController {
             }
         });
     }
+    updateCategory(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+            }
+            catch (error) {
+                if (error instanceof Error) {
+                    res.status(403).json({ message: error.message });
+                }
+            }
+        });
+    }
 }
 exports.default = new CategController();

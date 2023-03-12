@@ -14,7 +14,12 @@ class ProdController {
     getProducts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const products = yield products_models_1.Product.find();
+                // const products = await Product.find()
+                const products = yield products_models_1.Product
+                    .createQueryBuilder("products")
+                    .leftJoinAndSelect("products.category_id", "categories")
+                    .getMany();
+                console.log(products);
                 res.status(200).json(products);
             }
             catch (error) {
